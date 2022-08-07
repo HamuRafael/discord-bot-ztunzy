@@ -1,26 +1,51 @@
+from email import message
 from http import server
 import discord
 import os
+import random
+from discord.ext import commands
 
 class MyClient(discord.Client):
-    
+
+    bot = commands.Bot('!')
     
     async def on_ready(self):
         
         print('Logged on as {0}!'.format(self.user))
+    
         
-
     async def on_message(self, message):
         
         print('Message from {0.author}: {0.content}'.format(message))
-        if message.content == '!verdades' or message.content == '!Joao':
+        match message.content:
+            case '!oi':
+                return await message.channel.send('Olá' + ' ' +  str(message.author))
+            case '!verdades':
+                return await message.channel.send(f'1-  João é o mais pika {os.linesep}2 - Dada é viado{os.linesep}3 - mauricio é baiter{os.linesep}4 - felipin é pessimo{os.linesep}5 - hamu é tiltado{os.linesep}6 - tata é do direito logo ruim{os.linesep}7 - venzi é chato{os.linesep}8 - jonh é mais chato ainda{os.linesep}9 - sorriso só joga de awp{os.linesep}10 - amaral so tem 1 pró : eagle lama.{os.linesep}11 - moon é mulher{os.linesep}12 - tcholas.{os.linesep}13 - Pablin é barbeiro, só corta os outros')
+            case '!celo':
+                return await message.channel.send(f'Celo já rushou e entregou {round} rounds. Parabéns fracassado')
 
-            await message.channel.send(f'1-  João é o mais pika {os.linesep}2 - Dada{os.linesep}3 - mauricio é baiter{os.linesep}4 - felipin é pessimo{os.linesep}5 - hamu é tiltado{os.linesep}6 - tata é do direito logo ruim{os.linesep}7 - venzi é chato{os.linesep}8 - jonh é mais chato ainda{os.linesep}9 - sorriso só joga de awp{os.linesep}10 - amaral so tem 1 pró : eagle lama.{os.linesep}11 - moon é mulher{os.linesep}12 - tcholas.')
-        if message.content == '!celo':
-            
-            await message.channel.send(f'Celo já rushou e entregou {round} rounds. Parabéns fracassado')
-        if message.content == '!hamu':
-            await message.channel.send('Hamú ja deixou ao acordar!')   
+            case '!valterbrasil':
+                await message.channel.send(file=discord.File('valter.png'))
+            case '!dada':
+                i = random.randint(1,7)                
+                return await message.channel.send(file=discord.File(f'dada{i}.png')) 
+            case '!levelgc':
+                i = random.randint(0,21)
+                if i < 10:
+                    return await message.channel.send(f'@{message.author} você é level {i}. Melhore, level verde'.format(message))
+                if i > 10 and i < 17:
+                    return await message.channel.send(f'@{message.author} vocÊ é level {i}. Melhore um pouco mais, level laranja'.format(message))
+                if i>17:
+                    return await message.channel.send(f'@{message.author} vocÊ é level {i}. Boa!'.format(message))   
+            case '!comandos':
+                return await message.channel.send(f'Os comandos disponíveis são:{os.linesep}!verdades{os.linesep}!celo{os.linesep}!valterbrasil{os.linesep}!dada{os.linesep}!levelgc{os.linesep}!segredo')
+            case '!segredo':
+
+                return await message.author.send(file=discord.File('affomnso.png'))
+                
+        
+        
 client = MyClient()
-
-client.run('MTAwNTIwMjU4MTQ5ODM4NDQyNQ.GhwkzE.VTl-vqYl_qZY0YkoqAcxOD8dXxrUomoAvgpsHY')
+TOKEN_SECRETO = 'MTAwNTIwMjU4MTQ5ODM4NDQyNQ.GswFOm.Y0DDjaaDXocRpdp44OHblYP35r8t50N4WZdEjk'
+client.run(TOKEN_SECRETO)
